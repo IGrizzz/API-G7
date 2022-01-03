@@ -18,6 +18,7 @@ app.use(cors());
 
 //User
 
+router.get('/', UsersController.homepage)
 router.post('/register', UsersController.createNewUser)
 router.post('/login', UsersController.login)
 router.get('/users', UsersController.getUser)

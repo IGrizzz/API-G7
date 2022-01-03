@@ -5,6 +5,11 @@ const jwt = require('jsonwebtoken')
 
 class UserController {
 
+
+    static async homepage(req, res){
+        res.json({message:"See the code on Github : https://github.com/IGrizzz/API-G7"})
+    }
+
     static async createNewUser(req, res){
 
         const {name, email, password} = req.body
