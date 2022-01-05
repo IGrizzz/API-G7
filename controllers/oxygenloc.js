@@ -3,6 +3,17 @@ const OxygensModels = require('../models/ambulanceloc')
 class OxygensController {
 
 
+    static async searchOxygen(req, res){
+        OxygensModels.find({'$text':{'$search': req.query.params}})
+        .limit(10)
+        .then((result)=>{
+            res.status(200).json({result:result})
+        }).catch((err)=>{
+            res.status(500).json({error:err})
+        })
+    }
+
+
     static async createNewOxygen(req, res){
         cloudinary.uploader.uploader
         .then((result)=>{

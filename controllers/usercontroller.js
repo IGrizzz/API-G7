@@ -10,9 +10,10 @@ class UserController {
         res.json({message:"See the code on Github : https://github.com/IGrizzz/API-G7"})
     }
 
+
     static async createNewUser(req, res){
 
-        const {name, email, password} = req.body
+        const {instansi, email, password} = req.body
         
         UsersModels.findOne({email:email})
         .then((savedUser)=>{
@@ -25,7 +26,7 @@ class UserController {
             .hash(password, 12)
             .then((hashedPassword)=>{
                 const newUser = new UsersModels({
-                    name,
+                    instansi,
                     email,
                     password:hashedPassword
                 });
@@ -116,13 +117,13 @@ class UserController {
     static async updateUser(req, res){
         UsersModels.findById(req.params.id)
         .then((users)=>{
-            const {name, email, password} = req.body
+            const {instansi, email, password} = req.body
 
             bcrypt
             .hash(password, 12)
             .then((hashedPassword)=>{
                 const newUsers = {
-                    name,
+                    instansi,
                     email,
                     password:hashedPassword
                 }

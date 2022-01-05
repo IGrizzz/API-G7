@@ -9,11 +9,12 @@ const oxygenSchema = new Schema({
     contact:{type:String, required:true},
     operationalTime:{type:String, required:true},
     price:{type:String, required:true},
+    tags:[String],
     picture: {type: String, required:true},
     cloudinaryId: String
 }, {timestamps:true})
 
-
+ oxygenSchema.index({'$**': 'text'})
  const OxygensModels = mongoose.model('oxygen', oxygenSchema)
 
  module.exports = OxygensModels

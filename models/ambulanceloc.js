@@ -16,6 +16,7 @@ const ambulanceSchema = new Schema({
 }, {timestamps:true})
 
 
+ ambulanceSchema.index({'$**': 'text'})
  const AmbulancesModels = mongoose.model('ambulances', ambulanceSchema)
 
  module.exports = AmbulancesModels
