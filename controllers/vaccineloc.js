@@ -3,6 +3,18 @@ const VaccineModels = require('../models/vaccineloc')
 class VaccineController {
 
 
+
+    static async searchVaccine(req, res){
+        VaccineModels.find({'$text':{'$search':req.query.dsearch}})
+        .limit(10)
+        .then((result)=>{
+            res.status(200).json({result:result})
+        }).catch((err)=>{
+            res.status(500).json({error:err})
+        })
+    }
+
+
     static async createNewVaccine(req, res){
         cloudinary.uploader.upload(req.file.path)
         .then((result)=>{

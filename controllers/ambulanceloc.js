@@ -1,13 +1,28 @@
 const AmbulancesModels = require('../models/ambulanceloc')
 const cloudinary = require('../utils/cloudinary')
 
+
+
 class AmbulancesController {
+
+
+
+
+    static async searchAmbulance(req, res){
+        AmbulancesModels.find({'$text':{'$search':req.query.dsearch}})
+        .limit(10)
+        .then((result)=>{
+            res.status(200).json({result:result})
+        }).catch((err)=>{
+            res.status(500).json({err:err})
+        })                
+    }
 
 
     static async createNewAmbulance(req, res){
             cloudinary.uploader.upload(req.file.path)
             .then((result)=>{
-                const {name, location, contact, operationalTime, price} = req.body;
+                const {name, location, contact, tags, operationalTime, price} = req.body;
                 const userId = req.user_id;
                 const newAmbulance = new AmbulancesModels({
                     userId,
@@ -16,6 +31,7 @@ class AmbulancesController {
                     contact,
                     operationalTime,
                     price,
+                    tags,
                     picture:result?.secure_url,
                     cloudinary_id:result?.pubic_id
                 });
@@ -28,6 +44,8 @@ class AmbulancesController {
                 .catch((err)=>{
                     res.status(500).json({err:err})
                 })
+
+
             }).catch((err)=>{
                 res.status(500).json({err:err})
             })
@@ -100,7 +118,7 @@ class AmbulancesController {
      static async deleteAmbulance(req, res){
          AmbulancesModels.findByIdAndDelete(req.params.id)
          .exec((err, ambulance)=>{
-             if(product){
+             if(ambulance){
                  cloudinary.uploader.destroy(ambulance.cloudinary_id)
                  res.status(200).json({message:"item dihapus"})
              }res.status(500).json({message:"item tidak ada"});
