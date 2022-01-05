@@ -1,5 +1,5 @@
 const { Schema } = require('mongoose')
-const RegisModels = require('../models/registraion')
+const RegisModels = require('../models/registration')
 
 
 class RegisController {
