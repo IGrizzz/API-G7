@@ -10,7 +10,6 @@ class AmbulancesController {
 
     static async searchAmbulance(req, res){
         AmbulancesModels.find({'$text':{'$search':req.query.dsearch}})
-        .limit(10)
         .then((result)=>{
             res.status(200).json({result:result})
         }).catch((err)=>{
@@ -23,9 +22,7 @@ class AmbulancesController {
             cloudinary.uploader.upload(req.file.path)
             .then((result)=>{
                 const {name, location, contact, tags, operationalTime, price} = req.body;
-                const userId = req.user_id;
                 const newAmbulance = new AmbulancesModels({
-                    userId,
                     name,
                     location,
                     contact,

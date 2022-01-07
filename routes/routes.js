@@ -11,6 +11,8 @@ const OxygensController = require('../controllers/oxygenloc')
 const UsersController = require('../controllers/usercontroller')
 const BankController = require('../controllers/bank')
 const RegisController = require('../controllers/registrationcontroller')
+const CommunityController = require('../controllers/community')
+const DonateController = require('../controllers/donateform')
 
 
 
@@ -78,6 +80,26 @@ router.get('/bankdata', auth, BankController.getBank)
 router.get('/bankdata/:id', auth, BankController.getbBankById)
 router.delete('/bankdata/:id', auth, BankController.deleteBank)
 router.patch('/bankdata/:id', auth, BankController.updateBank)
+
+
+
+//community
+
+router.get('/community/search', CommunityController.searchCommunity)
+router.post('/community', [upload.single("picture"), auth], CommunityController.createNewCommunity)
+router.get('/community', CommunityController.getCommunity)
+router.get('/community/:id', CommunityController.getCommunityById)
+router.patch('/community/:id', [upload.single('picture'), auth], CommunityController.updateCommunity)
+router.delete('/community/id', auth, CommunityController.deleteCommunity)
+
+
+//donate form
+
+router.post('/community/donateform', DonateController.createNewDonations)
+router.get('/community/donateform', DonateController.getDonate)
+router.get('/community/donateform/:id', DonateController.getDonateById)
+router.patch('/community/donateform/:id', DonateController.updateDonate)
+router.delete('/community/donateform/:id', DonateController.deleteDonate)
 
 
 module.exports = router 
