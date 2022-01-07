@@ -10,7 +10,7 @@ const ambulanceSchema = new Schema({
     contact:{type: String, required:true},
     operationalTime:{type: String, required:true},
     price:{type: String, required:true},
-    picture: {type: String, required:true},
+    picture: {type: String, required:false},
     cloudinaryId: String
 }, {timestamps:true})
 
