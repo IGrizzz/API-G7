@@ -10,14 +10,12 @@ const openDbConnection = require('./helpers/db')
 
 const PORT = process.env.PORT || 3000
 const uri = process.env.MONGO_URI
-
-
+const app = express();
+app.use(cors())
 
     async function main(){
         try{
             await openDbConnection(uri);
-            const app = express();
-            app.use(cors());
             app.use(bodyParser.urlencoded({extended:true}))
             app.use(express.json());
             app.use(router);

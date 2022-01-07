@@ -5,7 +5,7 @@ class OxygensController {
 
 
     static async searchOxygen(req, res){
-        OxygensModels.find({'$text':{'$search': req.query.params}})
+        OxygensModels.find({'$text':{'$search': req.query.search}})
         .then((result)=>{
             res.status(200).json({result:result})
         }).catch((err)=>{
