@@ -1,4 +1,5 @@
 const VaccineModels = require('../models/vaccineloc')
+const cloudinary = require('../utils/cloudinary')
 
 class VaccineController {
 
@@ -15,29 +16,50 @@ class VaccineController {
 
 
     static async createNewVaccine(req, res){
-        cloudinary.uploader.upload(req.file.path)
-        .then((result)=>{
-            const {name, location, date, time,  registlink, description, contact } = req.body
+        if(req.file){
+            cloudinary.uploader.upload(req.file.path)
+            .then((result)=>{
+                const {name, location, date, time,  registlink, description, contact } = req.body
 
-            const newVac = new VaccineModels({
-                name,
-                location,
-                date,
-                time,
-                registlink,
-                description,
-                contact,
-                picture:result?.secure_url,
-                cloudinary_id:result?.public_id
-            })
+                const newVac = new VaccineModels({
+                    name,
+                    location,
+                    date,
+                    time,
+                    registlink,
+                    description,
+                    contact,
+                    picture:result?.secure_url,
+                    cloudinary_id:result?.public_id
+                })
 
-            newVac
-            .save()
-            .then((newVac)=>{
-                res.status(200).json({message:"success", newVac})
-            }).catch((error)=>{
-                res.status(500).json({error:error})
-            })
+                newVac
+                .save()
+                .then((newVac)=>{
+                    res.status(200).json({message:"success", newVac})
+                }).catch((error)=>{
+                    res.status(500).json({error:error})
+                })
+        }).catch((error)=>{
+            res.status(500).json({error:error})
+        })
+        }
+        const {name, location, date, time,  registlink, description, contact } = req.body
+
+        const newVac = new VaccineModels({
+            name,
+            location,
+            date,
+            time,
+            registlink,
+            description,
+            contact,
+        })
+
+        newVac
+        .save()
+        .then((newVac)=>{
+            res.status(200).json({message:"success", newVac})
         }).catch((error)=>{
             res.status(500).json({error:error})
         })
@@ -95,7 +117,22 @@ class VaccineController {
                 }).catch((error)=>{
                     res.status(500).json({error:error})
                 })
+            } const newVac = {
+                name: req.body.name || vaccine.name,
+                location: req.body.location || vaccine.location,
+                date: req.body.date || vaccine.date,
+                time: req.body.time || vaccine.time,
+                registlink: req.body.registlink || vaccine.registlink,
+                description: req.body.description || vaccine.description,
+                contact: req.body.contact || vaccine.contact
             }
+
+            VaccineModels.findByIdAndUpdate(req.params.id, newVac, {new:true})
+            .then((updated)=>{
+                res.status(200).json({message:"success", updated})
+            }).catch((error)=>{
+                res.status(500).json({error:error})
+            })
 
          }).catch((error)=>{
              res.status(500).json({error:error})

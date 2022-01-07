@@ -11,9 +11,8 @@ const vaccineSchema = new Schema({
     registlink:{type:String, required:true},
     description:{type:String, required:true, maxLength:300},
     contact:{type:String, required:true},
-    tags: [String],
-    picture: {type: String, required:true},
-    cloudinaryId: String
+    picture: {type: String},
+    cloudinary_Id: {type: String}
 }, {timestamps:true})
 
  vaccineSchema.index({'$**': 'text'})
