@@ -8,7 +8,7 @@ class AmbulancesController {
 
 
 
-    static async searchAmbulance(req, res){
+    static searchAmbulance(req, res){
         AmbulancesModels.find({'$text':{'$search':req.query.search}})
         .then((result)=>{
             res.status(200).json({result:result})
@@ -18,7 +18,7 @@ class AmbulancesController {
     }
 
 
-    static async createNewAmbulance(req, res){
+    static createNewAmbulance(req, res){
     if(req.file){
             cloudinary.uploader.upload(req.file.path)
             .then((result)=>{
@@ -72,7 +72,7 @@ class AmbulancesController {
 
 
 
-    static async getAmbulance(req, res){
+    static getAmbulance(req, res){
        
       AmbulancesModels.find()
       .then((result)=>{
@@ -83,7 +83,7 @@ class AmbulancesController {
      }
 
 
-     static async getAmbulancebyId(req, res){
+     static getAmbulancebyId(req, res){
         AmbulancesModels.findByID(req.params.id)
         .then((result)=>{
             res.status(200).send({message:"success", result})
@@ -93,7 +93,7 @@ class AmbulancesController {
      }
 
 
-     static async updateAmbulance(req, res){
+     static updateAmbulance(req, res){
         AmbulancesModels.findById(req.params.id)
         .then((ambulances)=>{
             if(req.file){
@@ -150,7 +150,7 @@ class AmbulancesController {
          
      }
 
-     static async deleteAmbulance(req, res){
+     static deleteAmbulance(req, res){
          AmbulancesModels.findByIdAndDelete(req.params.id)
          .exec((err, ambulance)=>{
              if(ambulance){
