@@ -6,7 +6,7 @@ class VaccineController {
 
 
     static async searchVaccine(req, res){
-        VaccineModels.find({'$text':{'$search':req.query.dsearch}})
+        VaccineModels.find({'$text':{'$search':req.query.search}})
         .then((result)=>{
             res.status(200).json({result:result})
         }).catch((err)=>{

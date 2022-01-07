@@ -6,7 +6,7 @@ class CommunityController {
 
 
     static async searchCommunity (req, res){
-        CommunityModels.find({'$text':{'$search':req.query.dsearch}})
+        CommunityModels.find({'$text':{'$search':req.query.search}})
         .then((result)=>{
             res.status(200).json({resut})
         }).catch((err)=>{
