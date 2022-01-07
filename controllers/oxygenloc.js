@@ -15,29 +15,47 @@ class OxygensController {
 
 
     static async createNewOxygen(req, res){
-        cloudinary.uploader.uploader
-        .then((result)=>{
-            const {name, location, contact, operationalTime, price} = req.body;
+    if(req.file){
+            cloudinary.uploader.uploader
+            .then((result)=>{
+                const {name, location, contact, operationalTime, price} = req.body;
 
-            const newOxy = new OxygensModels({
-                name,
-                location,
-                contact,
-                operationalTime,
-                price,
-                picture:result?.secure_url,
-                cloudinary:result?.public_id
-            });
+                const newOxy = new OxygensModels({
+                    name,
+                    location,
+                    contact,
+                    operationalTime,
+                    price,
+                    picture:result?.secure_url,
+                    cloudinary:result?.public_id
+                });
 
-            newOxy.save()
-            .then((newOxy)=>{
-                res.status(200).json({message:"success", newOxy})
+                newOxy.save()
+                .then((newOxy)=>{
+                    res.status(200).json({message:"success", newOxy})
+                }).catch((error)=>{
+                    res.status(500).json({error:error})
+                });
             }).catch((error)=>{
                 res.status(500).json({error:error})
-            });
-        }).catch((error)=>{
-            res.status(500).json({error:error})
-        })
+            })
+        }
+        const {name, location, contact, operationalTime, price} = req.body;
+
+                const newOxy = new OxygensModels({
+                    name,
+                    location,
+                    contact,
+                    operationalTime,
+                    price
+                });
+
+                newOxy.save()
+                .then((newOxy)=>{
+                    res.status(200).json({message:"success", newOxy})
+                }).catch((error)=>{
+                    res.status(500).json({error:error})
+                });
     }
 
 
@@ -91,6 +109,21 @@ class OxygensController {
                      res.status(500).json({error:error})
                  })
              }
+             const updatedOxy = {
+                name: req.body.name || oxygens.name,
+                location: req.body.location || oxygens.location,
+                contact: req.body.contact || oxygens.contact,
+                operationalTime: req.body.operationalTime || oxygens.operationalTime,
+                price: req.body.price || oxygens.price
+            }
+
+
+            OxygensModels.findByIdAndUpdate(req.params.id, updatedOxy, {new:true})
+            .then((updated)=>{
+                res.status(200).json({message:"success", updated})
+            }).catch((error)=>{
+                res.status(500).json({error:error})
+            })
          })
      }
 

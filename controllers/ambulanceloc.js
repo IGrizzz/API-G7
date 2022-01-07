@@ -19,6 +19,7 @@ class AmbulancesController {
 
 
     static async createNewAmbulance(req, res){
+    if(req.file){
             cloudinary.uploader.upload(req.file.path)
             .then((result)=>{
                 const {name, location, contact, tags, operationalTime, price} = req.body;
@@ -46,6 +47,25 @@ class AmbulancesController {
             }).catch((err)=>{
                 res.status(500).json({err:err})
             })
+        }
+        const {name, location, contact, tags, operationalTime, price} = req.body;
+        const newAmbulance = new AmbulancesModels({
+            name,
+            location,
+            contact,
+            operationalTime,
+            price,
+            tags
+        });
+
+        newAmbulance
+        .save()
+        .then((newAmbulance) =>{
+            res.status(201).json(newAmbulance)
+        })
+        .catch((err)=>{
+            res.status(500).json({err:err})
+        })
 
         
     }
@@ -104,6 +124,24 @@ class AmbulancesController {
                     res.status(500).json({err:error})
                 })
             }
+            const newData = {
+                name: req.body.name || ambulances.name,
+                location : req.body.location || ambulances.location,
+                contact: req.body.contact || ambulances.contact,
+                operationalTime: req.body.operationalTime || ambulances.operationalTime,
+                price: req.body.price || ambulances.price,
+            }
+
+
+
+            AmbulancesModels.findByIdAndUpdate(req.params.id, newData, {new:true})
+            .then((result)=>{
+                res.json({message:"Berhasil", result})
+            }).catch((err)=>{
+                res.json({error:err})
+            })
+            
+
         }).catch((error) =>{
             res.status(500).json({err:error})
         })
