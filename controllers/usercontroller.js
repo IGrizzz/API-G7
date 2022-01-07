@@ -11,7 +11,7 @@ class UserController {
     }
 
 
-    static async createNewUser(req, res){
+    static createNewUser(req, res){
 
         const {instansi, email, password} = req.body
         
@@ -49,7 +49,7 @@ class UserController {
     }
 
 
-    static async login(req, res){
+    static login(req, res){
         
             const {email, password} = req.body;
 
@@ -94,7 +94,7 @@ class UserController {
             
             
 
-    static async getUser(req, res){
+    static getUser(req, res){
         UsersModels.find()
         .then((result)=>{
             res.status(200).json({message:"success", result})
@@ -104,7 +104,7 @@ class UserController {
     }
 
 
-    static async getUserById(req, res){
+    static getUserById(req, res){
         UsersModels.findById(req.params.id)
         .then((users)=>{
             res.status(200).json({message:"successfully", users})
@@ -114,7 +114,7 @@ class UserController {
     }
 
 
-    static async updateUser(req, res){
+    static updateUser(req, res){
         UsersModels.findById(req.params.id)
         .then((users)=>{
             const {instansi, email, password} = req.body
@@ -145,7 +145,7 @@ class UserController {
 
 
 
-    static async deleteUser(req, res){
+    static deleteUser(req, res){
         UsersModels.findByIdAndDelete(req.params.id)
         .then((err, user)=>{
             if(user){

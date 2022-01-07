@@ -12,7 +12,7 @@ const regisSchema = new Schema({
     nomorTelepon: {type: Number, required:true},
     email:{type: String, required:true},
     doc: {type:String, required:true},
-    cloudinaryId: {type: String, required:true}
+    cloudinary_Id: {type: String, required:true}
 }, {timestamps:true});
 
 const RegisModels = mongoose.model('registration', regisSchema)

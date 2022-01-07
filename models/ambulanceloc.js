@@ -5,13 +5,12 @@ const Schema = mongoose.Schema
 
 
 const ambulanceSchema = new Schema({
-    userId:{type:ObjectId, erf:"user"},
     name:{type: String, required:true},
     location:{type: String, required:true},
     contact:{type: String, required:true},
     operationalTime:{type: String, required:true},
     price:{type: String, required:true},
-    picture: {type: String, required:true},
+    picture: {type: String, required:false},
     cloudinaryId: String
 }, {timestamps:true})
 

@@ -5,7 +5,7 @@ const RegisModels = require('../models/registration')
 class RegisController {
 
 
-    static async createRegis(req, res){
+    static createRegis(req, res){
         cloudinary.uploader.upload(req.file.path)
         .then((result)=>{
             const {namaInstansi, kepemilikan, alamat, nomorTelepon, email } = req.body
@@ -38,7 +38,7 @@ class RegisController {
 
 
 
-    static async getRegis (req, res){
+    static getRegis (req, res){
         RegisModels.find()
         .then((result)=>{
             res.status(200).json({reuslt:result})
@@ -49,7 +49,7 @@ class RegisController {
 
 
 
-    static async getRegisById (req, res){
+    static getRegisById (req, res){
         RegisModels.findById(req.params.id)
         .then((result)=>{
             res.status(200).json({result:result})
@@ -59,7 +59,7 @@ class RegisController {
     }
 
 
-    static async updateRegis (req, res){
+    static updateRegis (req, res){
         RegisModels.findById(req.params.id)
         .then((regis)=>{
 
@@ -101,7 +101,7 @@ class RegisController {
     }
 
 
-    static async deleteRegis(req, res){
+    static deleteRegis(req, res){
         RegisModels.findByIdAndDelete(req.params.id)
         .exec((err, regis)=>{
             if(regis){

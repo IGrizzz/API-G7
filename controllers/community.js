@@ -5,7 +5,7 @@ class CommunityController {
 
 
 
-    static async searchCommunity (req, res){
+    static searchCommunity (req, res){
         CommunityModels.find({'$text':{'$search':req.query.search}})
         .then((result)=>{
             res.status(200).json({resut})
@@ -14,7 +14,7 @@ class CommunityController {
         })
     }
 
-    static async createNewCommunity(req, res){
+    static createNewCommunity(req, res){
 
         cloudinary.uploader.upload(req.file.path)
         .then((result)=>{
@@ -42,7 +42,7 @@ class CommunityController {
     }
 
 
-    static async getCommunity (req, res){
+    static getCommunity (req, res){
         CommunityModels.find()
         .then((result)=>{
             res.status(200).json({message:"Success", result})
@@ -51,7 +51,7 @@ class CommunityController {
         })
     }
 
-    static async getCommunityById (req, res){
+    static getCommunityById (req, res){
         CommunityModels.findById(req.params.id)
         .then((result)=>{
             res.status(200).json({message:"success", result})
@@ -61,7 +61,7 @@ class CommunityController {
     }
 
 
-    static async updateCommunity (req, res){
+    static updateCommunity (req, res){
         CommunityModels.findById(req.params.id)
         .then((community)=>{
             if(req.file){
@@ -96,7 +96,7 @@ class CommunityController {
     }
 
 
-    static async deleteCommunity (req, res){
+    static deleteCommunity (req, res){
         CommunityModels.findByIdAndDelete(req.params.id)
         .exec((err, community)=>{
             if(community){

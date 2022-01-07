@@ -72,18 +72,18 @@ class AmbulancesController {
 
 
 
-    static async getAmbulance(req, res){
+    static  getAmbulance(req, res){
        
       AmbulancesModels.find()
       .then((result)=>{
-          res.status(200).send({message:"sucess", result})
+          res.status(200).send({message:"success", result})
       }).catch((error)=>{
           res.status(500).send(error)
       })
      }
 
 
-     static async getAmbulancebyId(req, res){
+     static  getAmbulancebyId(req, res){
         AmbulancesModels.findByID(req.params.id)
         .then((result)=>{
             res.status(200).send({message:"success", result})
@@ -93,7 +93,7 @@ class AmbulancesController {
      }
 
 
-     static async updateAmbulance(req, res){
+     static  updateAmbulance(req, res){
         AmbulancesModels.findById(req.params.id)
         .then((ambulances)=>{
             if(req.file){
@@ -150,7 +150,7 @@ class AmbulancesController {
          
      }
 
-     static async deleteAmbulance(req, res){
+     static deleteAmbulance(req, res){
          AmbulancesModels.findByIdAndDelete(req.params.id)
          .exec((err, ambulance)=>{
              if(ambulance){

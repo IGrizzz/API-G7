@@ -1,12 +1,12 @@
 const VaccineModels = require('../models/vaccineloc')
+const cloudinary = require('../utils/cloudinary')
 
 class VaccineController {
 
 
 
-    static async searchVaccine(req, res){
-        VaccineModels.find({'$text':{'$search':req.query.dsearch}})
-        .limit(10)
+    static searchVaccine(req, res){
+        VaccineModels.find({'$text':{'$search':req.query.search}})
         .then((result)=>{
             res.status(200).json({result:result})
         }).catch((err)=>{
@@ -15,30 +15,51 @@ class VaccineController {
     }
 
 
-    static async createNewVaccine(req, res){
-        cloudinary.uploader.upload(req.file.path)
-        .then((result)=>{
-            const {name, location, date, time,  registlink, description, contact } = req.body
+    static createNewVaccine(req, res){
+        if(req.file){
+            cloudinary.uploader.upload(req.file.path)
+            .then((result)=>{
+                const {name, location, date, time,  registlink, description, contact } = req.body
 
-            const newVac = new VaccineModels({
-                name,
-                location,
-                date,
-                time,
-                registlink,
-                description,
-                contact,
-                picture:result?.secure_url,
-                cloudinary_id:result?.public_id
-            })
+                const newVac = new VaccineModels({
+                    name,
+                    location,
+                    date,
+                    time,
+                    registlink,
+                    description,
+                    contact,
+                    picture:result?.secure_url,
+                    cloudinary_id:result?.public_id
+                })
 
-            newVac
-            .save()
-            .then((newVac)=>{
-                res.status(200).json({message:"success", newVac})
-            }).catch((error)=>{
-                res.status(500).json({error:error})
-            })
+                newVac
+                .save()
+                .then((newVac)=>{
+                    res.status(200).json({message:"success", newVac})
+                }).catch((error)=>{
+                    res.status(500).json({error:error})
+                })
+        }).catch((error)=>{
+            res.status(500).json({error:error})
+        })
+        }
+        const {name, location, date, time,  registlink, description, contact } = req.body
+
+        const newVac = new VaccineModels({
+            name,
+            location,
+            date,
+            time,
+            registlink,
+            description,
+            contact,
+        })
+
+        newVac
+        .save()
+        .then((newVac)=>{
+            res.status(200).json({message:"success", newVac})
         }).catch((error)=>{
             res.status(500).json({error:error})
         })
@@ -46,7 +67,7 @@ class VaccineController {
 
 
 
-    static async getVaccine(req, res){
+    static getVaccine(req, res){
        VaccineModels.find()
        .then((result)=>{
            res.status(200).json({message:"success", result})
@@ -57,7 +78,7 @@ class VaccineController {
      }
 
 
-     static async getVaccineById(req, res){
+     static getVaccineById(req, res){
          VaccineModels.findById(req.params.id)
          .then((result)=>{
              res.status(200).json({message:"success", result})
@@ -67,7 +88,7 @@ class VaccineController {
         }
 
 
-     static async updateVaccine(req, res){
+     static updateVaccine(req, res){
          VaccineModels.findById(req.params.id)
          .then((vaccine)=>{
             if(req.file){
@@ -96,7 +117,22 @@ class VaccineController {
                 }).catch((error)=>{
                     res.status(500).json({error:error})
                 })
+            } const newVac = {
+                name: req.body.name || vaccine.name,
+                location: req.body.location || vaccine.location,
+                date: req.body.date || vaccine.date,
+                time: req.body.time || vaccine.time,
+                registlink: req.body.registlink || vaccine.registlink,
+                description: req.body.description || vaccine.description,
+                contact: req.body.contact || vaccine.contact
             }
+
+            VaccineModels.findByIdAndUpdate(req.params.id, newVac, {new:true})
+            .then((updated)=>{
+                res.status(200).json({message:"success", updated})
+            }).catch((error)=>{
+                res.status(500).json({error:error})
+            })
 
          }).catch((error)=>{
              res.status(500).json({error:error})
@@ -104,7 +140,7 @@ class VaccineController {
      }
 
 
-     static async deleteVaccine(req, res){
+     static deleteVaccine(req, res){
          VaccineModels.findByIdAndDelete(req.params.id)
          .exec((err, vaccine)=>{
              if(vaccine){

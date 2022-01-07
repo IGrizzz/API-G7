@@ -4,14 +4,15 @@ const DonateModels = require('../models/donateform')
 
 class DonateController {
 
-    static async createNewDonations(req, res){
-        const {name, contact, email, address} = req.body
+    static createNewDonations(req, res){
+        const {name, contact, email, address, nominal} = req.body
         
         const newDonate = new DonateModels({
             name,
             contact,
             email,
-            address
+            address,
+            nominal
         })
 
         newDonate
@@ -27,7 +28,7 @@ class DonateController {
 
 
 
-    static async getDonate(req, res){
+    static getDonate(req, res){
         DonationModels.find()
         .then((result)=>{
         res.status(200).json({message:"success", result})
@@ -38,7 +39,7 @@ class DonateController {
 
 
 
-    static async getDonateById(req, res){
+    static getDonateById(req, res){
         DonationModels.findById(req.params.id)
         .then((result)=>{
             res.status(200).json({message:"success", result})
@@ -48,16 +49,17 @@ class DonateController {
     }
 
 
-    static async updateDonate(req, res){
+    static updateDonate(req, res){
         CommunityModels.findById(req.params.id)
         .then((result)=>{
-            const {name, contact, email, address} = req.body
+            const {name, contact, email, address, nominal} = req.body
 
             const newCommunity = {
                 name: name || result.name,
                 contact: contact || result.contact,
                 email: email || result.email,
-                address: address || result.address
+                address: address || result.address,
+                nominal: nominal || result.nominal
             }
 
             CommunityModels.findByIdAndUpdate(req.params.id, newCommunity, {new:true})
@@ -72,7 +74,7 @@ class DonateController {
     }
 
 
-    static async deleteDonate(req, res){
+    static deleteDonate(req, res){
         CommunityModels.findByIdAndDelete(req.params.id)
         .exec((community)=>{
             res.status(200).json({message:"item dihapus"})
