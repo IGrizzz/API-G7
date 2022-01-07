@@ -45,7 +45,7 @@ router.delete('/user/:id', auth, UsersController.deleteUser)
 
 //Ambulance
 
-router.post('/ambulance', AmbulancesController.searchAmbulance)
+router.post('/ambulance/a', AmbulancesController.searchAmbulance)
 router.post('/ambulance', [upload.single("picture"), auth], AmbulancesController.createNewAmbulance)
 router.get('/ambulance', AmbulancesController.getAmbulance)
 router.get('/ambulances/:id', AmbulancesController.getAmbulancebyId)
@@ -55,7 +55,7 @@ router.delete('/ambulance/:id', auth, AmbulancesController.deleteAmbulance)
 
 //Vaccine
 
-router.post('/vaccine', VaccineController.searchVaccine)
+router.post('/vaccine/a', VaccineController.searchVaccine)
 router.post('/vaccine', [upload.single("picture"), auth], VaccineController.createNewVaccine)
 router.get('/vaccine', VaccineController.getVaccine)
 router.get('/vaccine/:id', VaccineController.getVaccineById)
@@ -65,7 +65,7 @@ router.delete('/vaccine/:id', auth, VaccineController.deleteVaccine)
 
 //Oxygens
 
-router.post('/oxygen', OxygensController.searchOxygen)
+router.post('/oxygen/a', OxygensController.searchOxygen)
 router.post('/oxygen', [upload.single("avatar"), auth], OxygensController.createNewOxygen)
 router.get('/oxygens', OxygensController.getOxygen)
 router.get('/oxygens/:id', OxygensController.getOxygenbyId)
@@ -85,7 +85,7 @@ router.patch('/bankdata/:id', auth, BankController.updateBank)
 
 //community
 
-router.post('/community', CommunityController.searchCommunity)
+router.post('/community/a', CommunityController.searchCommunity)
 router.post('/community', [upload.single("picture"), auth], CommunityController.createNewCommunity)
 router.get('/community', CommunityController.getCommunity)
 router.get('/community/:id', CommunityController.getCommunityById)
