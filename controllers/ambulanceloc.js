@@ -18,7 +18,7 @@ class AmbulancesController {
     }
 
 
-    static  createNewAmbulance(req, res){
+    static createNewAmbulance(req, res){
     if(req.file){
             cloudinary.uploader.upload(req.file.path)
             .then((result)=>{
@@ -72,7 +72,7 @@ class AmbulancesController {
 
 
 
-    static  getAmbulance(req, res){
+    static getAmbulance(req, res){
        
       AmbulancesModels.find()
       .then((result)=>{
@@ -83,7 +83,7 @@ class AmbulancesController {
      }
 
 
-     static  getAmbulancebyId(req, res){
+     static getAmbulancebyId(req, res){
         AmbulancesModels.findByID(req.params.id)
         .then((result)=>{
             res.status(200).send({message:"success", result})
@@ -93,7 +93,7 @@ class AmbulancesController {
      }
 
 
-     static  updateAmbulance(req, res){
+     static updateAmbulance(req, res){
         AmbulancesModels.findById(req.params.id)
         .then((ambulances)=>{
             if(req.file){

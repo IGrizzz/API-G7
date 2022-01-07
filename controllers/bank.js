@@ -4,7 +4,7 @@ const BankModels = require('../models/bank')
 
 class BankController {
 
-    static async createNewBank(req, res){
+    static createNewBank(req, res){
         const {name, banknum, bank} = req.body;
 
         const newBank = new BankModels({
@@ -26,7 +26,7 @@ class BankController {
 
 
     
-    static async getBank(req, res){
+    static getBank(req, res){
         BankModels.find()
         .then((result)=>{
             res.status(200).json({message:"Success", result})
@@ -36,7 +36,7 @@ class BankController {
     }
 
 
-    static async getbBankById (req, res){
+    static  getbBankById (req, res){
         BankModels.findById(req.params.id)
         .then((result)=>{
             res.status(200).json({message:"success", result})
@@ -46,7 +46,7 @@ class BankController {
     }
 
 
-    static async updateBank(req, res){
+    static updateBank(req, res){
         BankModels.findById(req.params.id)
         .then((banks)=>{
 
@@ -68,7 +68,7 @@ class BankController {
     }
     
 
-    static async deleteBank(req, res){
+    static deleteBank(req, res){
         BankModels.findByIdAndDelete(req.params.id)
         .exec((err, bank)=>{
             if(bank){
