@@ -1,4 +1,5 @@
 const OxygensModels = require('../models/ambulanceloc')
+const cloudinary = require('../utils/cloudinary')
 
 class OxygensController {
 

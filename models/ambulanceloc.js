@@ -5,7 +5,6 @@ const Schema = mongoose.Schema
 
 
 const ambulanceSchema = new Schema({
-    userId:{type:ObjectId, erf:"user"},
     name:{type: String, required:true},
     location:{type: String, required:true},
     contact:{type: String, required:true},
