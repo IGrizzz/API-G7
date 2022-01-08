@@ -48,9 +48,7 @@ class CommunityController {
                 lokasi,
                 email,
                 contact,
-                bank,
-                picture:result?.secure_url,
-                cloudinary_id:result?.public_id
+                bank
             })
 
             newCommunity.save()
@@ -118,9 +116,7 @@ class CommunityController {
                         lokasi,
                         email,
                         contact,
-                        bank,
-                        picture:result?.secure_url,
-                        cloudinary_id:result?.public_id
+                        bank
                     }
 
                     CommunityModels.findByIdAndUpdate(req.params.id, newCommunity, {new:true})
