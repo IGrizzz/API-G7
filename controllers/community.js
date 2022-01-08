@@ -15,6 +15,7 @@ class CommunityController {
     }
 
     static createNewCommunity(req, res){
+    if(req.file){
 
         cloudinary.uploader.upload(req.file.path)
         .then((result)=>{
@@ -39,6 +40,26 @@ class CommunityController {
         }).catch((err)=>{
             res.status(500).json({error:err})
         })
+        }
+        const {namaKomunitas, lokasi, email, contact, bank} = req.body
+
+            const newCommunity = new CommunityModels({
+                namaKomunitas,
+                lokasi,
+                email,
+                contact,
+                bank,
+                picture:result?.secure_url,
+                cloudinary_id:result?.public_id
+            })
+
+            newCommunity.save()
+            .then((newCommunity)=>{
+                res.status(200).json({message:"Community Created", newCommunity})
+            }).catch((err)=>{
+                res.json(500).json({error:err})
+            })
+
     }
 
 
@@ -90,6 +111,24 @@ class CommunityController {
                     res.status(500).json({error:error})
                 })
             }
+            const {namaKomunitas, lokasi, email, contact, bank} = req.body
+
+                    const newCommunity = {
+                        namaKomunitas,
+                        lokasi,
+                        email,
+                        contact,
+                        bank,
+                        picture:result?.secure_url,
+                        cloudinary_id:result?.public_id
+                    }
+
+                    CommunityModels.findByIdAndUpdate(req.params.id, newCommunity, {new:true})
+                    .then((newCommunity)=>{
+                        res.status(200).json({message:"successfully updated", newCommunity})
+                    }).catch((error)=>{
+                        res.status(500).json({error:error})
+                    })
         }).catch((error)=>{
             res.status(500).json({error:error})
         })
