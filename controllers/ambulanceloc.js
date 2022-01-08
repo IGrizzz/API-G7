@@ -84,7 +84,7 @@ class AmbulancesController {
 
 
      static getAmbulancebyId(req, res){
-        AmbulancesModels.findByID(req.params.id)
+        AmbulancesModels.findById(req.params.id)
         .then((result)=>{
             res.status(200).send({message:"success", result})
         }).catch((error)=>{
