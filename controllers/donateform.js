@@ -5,14 +5,14 @@ const DonateModels = require('../models/donateform')
 class DonateController {
 
     static createNewDonations(req, res){
-        const {name, contact, email, address, nominal} = req.body
+        const body = req.body;
         
         const newDonate = new DonateModels({
-            name,
-            contact,
-            email,
-            address,
-            nominal
+            name: body.name,
+            contact: body.contact,
+            email: body.email,
+            address: body.address,
+            nominal: body.nominal
         })
 
         newDonate
@@ -29,7 +29,7 @@ class DonateController {
 
 
     static getDonate(req, res){
-        DonationModels.find()
+        DonateModels.find()
         .then((result)=>{
         res.status(200).json({message:"success", result})
         }).catch((err)=>{
@@ -40,7 +40,7 @@ class DonateController {
 
 
     static getDonateById(req, res){
-        DonationModels.findById(req.params.id)
+        DonateModels.findById(req.params.id)
         .then((result)=>{
             res.status(200).json({message:"success", result})
         }).catch((error)=>{
@@ -50,11 +50,11 @@ class DonateController {
 
 
     static updateDonate(req, res){
-        CommunityModels.findById(req.params.id)
+        DonateModels.findById(req.params.id)
         .then((result)=>{
             const {name, contact, email, address, nominal} = req.body
 
-            const newCommunity = {
+            const newDonate = {
                 name: name || result.name,
                 contact: contact || result.contact,
                 email: email || result.email,
@@ -62,9 +62,9 @@ class DonateController {
                 nominal: nominal || result.nominal
             }
 
-            CommunityModels.findByIdAndUpdate(req.params.id, newCommunity, {new:true})
+            DonateModels.findByIdAndUpdate(req.params.id, newDonate, {new:true})
             .then((newCommuntiy)=>{
-                res.status(200).json({message:"success", newCommunity})
+                res.status(200).json({message:"success", newDonate})
             }).catch((error)=>{
                 res.status(500).json({error:error})
             })
@@ -75,7 +75,7 @@ class DonateController {
 
 
     static deleteDonate(req, res){
-        CommunityModels.findByIdAndDelete(req.params.id)
+        DonateModels.findByIdAndDelete(req.params.id)
         .exec((community)=>{
             res.status(200).json({message:"item dihapus"})
         }).catch((err)=>{

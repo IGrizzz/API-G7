@@ -7,8 +7,10 @@ const donateSchema = new Schema({
     contact: {type: String, required:true},
     email:{type: String, required:true},
     address:{type: String, required:true},
-    nominal:{type: Number, required: true}
+    nominal:{type: String, required: true}
 })
 
 
 const DonateModels = mongoose.model('donate', donateSchema)
+
+module.exports = DonateModels
