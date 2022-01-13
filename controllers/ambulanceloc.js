@@ -151,12 +151,13 @@ class AmbulancesController {
      }
 
      static deleteAmbulance(req, res){
-         AmbulancesModels.findByIdAndDelete(req.params.id)
+         AmbulancesModels.findByIdAndRemove(req.params.id)
          .exec((err, ambulance)=>{
              if(ambulance){
                  cloudinary.uploader.destroy(ambulance.cloudinary_id)
                  res.status(200).json({message:"item dihapus"})
-             }res.status(500).json({message:"item tidak ada"});
+                 return;
+             }res.sendStatus(404).json({message:"item tidak ada"});
          }
          )
     }

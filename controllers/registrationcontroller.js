@@ -107,6 +107,7 @@ class RegisController {
             if(regis){
                 cloudinary.uploader.destroy(regis.cloudinary_id)
                 res.status(200).json({message:"Item Dihapus"})
+                return;
             }res.status(500).json({error:err})
         })
     }

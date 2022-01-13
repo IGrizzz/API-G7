@@ -146,6 +146,7 @@ class VaccineController {
              if(vaccine){
                  cloudinary.uploader.destroy(vaccine.cloudinary_id)
                  res.status(200).json({message:"item terhapus"})
+                 return;
              }
              res.status(500).json({message:"item tidak ditemukan"})
          })

@@ -48,7 +48,7 @@ router.delete('/user/:id', auth, UsersController.deleteUser)
 router.post('/ambulance/a', AmbulancesController.searchAmbulance)
 router.post('/ambulance', [upload.single("picture"), auth], AmbulancesController.createNewAmbulance)
 router.get('/ambulance', AmbulancesController.getAmbulance)
-router.get('/ambulances/:id', AmbulancesController.getAmbulancebyId)
+router.get('/ambulance/:id', AmbulancesController.getAmbulancebyId)
 router.put('/ambulance/:id', [upload.single("picture"), auth], AmbulancesController.updateAmbulance)
 router.delete('/ambulance/:id', auth, AmbulancesController.deleteAmbulance)
 

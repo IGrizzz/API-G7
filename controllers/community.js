@@ -137,6 +137,7 @@ class CommunityController {
             if(community){
                 cloudinary.uploader.destroy(community.cloudinary_id)
                 res.status(200).json({message:"item deleted"})
+                return;
             }res.status(500).json({message:"item tidak ditemukan"})
         })
     }

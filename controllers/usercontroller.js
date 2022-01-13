@@ -151,6 +151,7 @@ class UserController {
             if(user){
                 cloudinary.uploader.destroy(user.cloudinary_id)
                 res.status(200).json({message:"item dihapus"})
+                return;
             }
             res.status(500).json({message:"item tidak ditemukan"})
         })
