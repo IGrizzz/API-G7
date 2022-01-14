@@ -90,7 +90,7 @@ router.post('/community', [upload.single("picture"), auth], CommunityController.
 router.get('/community', CommunityController.getCommunity)
 router.get('/community/:id', CommunityController.getCommunityById)
 router.patch('/community/:id', [upload.single('picture'), auth], CommunityController.updateCommunity)
-router.delete('/community/id', auth, CommunityController.deleteCommunity)
+router.delete('/community/:id', auth, CommunityController.deleteCommunity)
 
 
 //donate form
