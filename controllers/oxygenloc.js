@@ -1,4 +1,4 @@
-const OxygensModels = require('../models/ambulanceloc')
+const OxygensModels = require('../models/oxygenloc')
 const cloudinary = require('../utils/cloudinary')
 
 class OxygensController {
