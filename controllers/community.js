@@ -132,7 +132,7 @@ class CommunityController {
 
 
     static deleteCommunity (req, res){
-        CommunityModels.findByIdAndDelete(req.params.id)
+        CommunityModels.findByIdAndRemove(req.params.id)
         .exec((err, community)=>{
             if(community){
                 cloudinary.uploader.destroy(community.cloudinary_id)
